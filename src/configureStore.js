@@ -8,7 +8,7 @@ const configureStore = ()=> {
   const middlewares = [promiseMidddlware];
 
   if(process.env.NODE_ENV !== 'production'){
-    middlewares.push(createLogger());
+    middlewares.push(createLogger);
   }
 
   return createStore(
