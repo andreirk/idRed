@@ -1,6 +1,11 @@
 import v4 from 'uuid/v4';
 import * as api from '../api'
 
+const requestTodos = (filter) => ({
+  type:'REQUEST_TODOS',
+  filter,
+});
+
 export const addTodo = (text) => {
   return {
     type: 'ADD_TODO',
@@ -33,9 +38,10 @@ const receiveTodos = (filter, response) => {
 }
 
 
-export const fetchTodos = (filter) => {
+export const fetchTodos = (filter) => (dispatch) => {
+  dispatch(requestTodos(filter));
   return api.fetchTodos(filter)
     .then(response =>
-      receiveTodos(filter, response)
+      dispatch (receiveTodos(filter, response))
     )
 }
